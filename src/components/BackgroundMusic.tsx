@@ -11,15 +11,13 @@ export const BackgroundMusic = ({ src = "/music.mp3" }: BackgroundMusicProps) =>
     const audio = audioRef.current;
     if (!audio) return;
 
-    // Setar volume inicial em 50%
     audio.volume = 0.5;
     audio.loop = true;
 
     // Bloquear pause
-    const handlePause = () => {
-      audio.play().catch(() => {
-        // Silenciosamente falha se não conseguir tocar
-      });
+    const handlePause = (e: Event) => {
+      e.preventDefault();
+      audio.play().catch(() => {});
     };
 
     // Bloquear volume zerado
@@ -32,21 +30,39 @@ export const BackgroundMusic = ({ src = "/music.mp3" }: BackgroundMusicProps) =>
     audio.addEventListener("pause", handlePause);
     audio.addEventListener("volumechange", handleVolumeChange);
 
-    // Tentar tocar com suporte a navegadores mais restritivos
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          console.log("Música tocando");
-        })
-        .catch((error) => {
-          console.log("Autoplay bloqueado pelo navegador - é necessário click do usuário:", error);
-        });
+    // Fazer autoplay funcionar
+    const playAudio = () => {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log("✅ Música tocando!");
+          })
+          .catch(() => {
+            console.log("Tentando iniciar com interação do usuário...");
+            document.addEventListener("click", attemptPlay, { once: true });
+            document.addEventListener("touchstart", attemptPlay, { once: true });
+          });
+      }
+    };
+
+    const attemptPlay = () => {
+      audio.play().catch(() => {});
+    };
+
+    // Tentar tocar assim que carregar
+    if (audio.readyState >= 2) {
+      playAudio();
+    } else {
+      audio.addEventListener("canplay", playAudio, { once: true });
     }
 
     return () => {
       audio.removeEventListener("pause", handlePause);
       audio.removeEventListener("volumechange", handleVolumeChange);
+      audio.removeEventListener("canplay", playAudio);
+      document.removeEventListener("click", attemptPlay);
+      document.removeEventListener("touchstart", attemptPlay);
     };
   }, [src]);
 
@@ -55,9 +71,10 @@ export const BackgroundMusic = ({ src = "/music.mp3" }: BackgroundMusicProps) =>
       ref={audioRef}
       src={src}
       loop
+      autoPlay
+      preload="auto"
       style={{ display: "none" }}
-      controlsList="nodownload"
-      onContextMenu={(e) => e.preventDefault()}
+      crossOrigin="anonymous"
     >
       <source src={src} type="audio/mpeg" />
     </audio>
