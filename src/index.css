@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 260 20% 8%;
+    --foreground: 280 100% 95%;
+
+    --card: 260 25% 12%;
+    --card-foreground: 280 100% 95%;
+
+    --popover: 260 25% 12%;
+    --popover-foreground: 280 100% 95%;
+
+    --primary: 280 100% 65%;
+    --primary-foreground: 260 20% 8%;
+
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 260 20% 8%;
+
+    --muted: 260 20% 18%;
+    --muted-foreground: 280 30% 70%;
+
+    --accent: 320 100% 60%;
+    --accent-foreground: 260 20% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 280 50% 25%;
+    --input: 280 50% 25%;
+    --ring: 280 100% 65%;
+
+    --radius: 1rem;
+
+    /* Custom neon rock colors */
+    --neon-purple: 280 100% 65%;
+    --neon-pink: 320 100% 60%;
+    --neon-cyan: 180 100% 50%;
+    --neon-blue: 220 100% 60%;
+    --magic-glow: 280 100% 70%;
+    --dark-base: 260 20% 8%;
+    --dark-card: 260 25% 12%;
+    --dark-elevated: 260 30% 16%;
+
+    --sidebar-background: 260 20% 8%;
+    --sidebar-foreground: 280 100% 95%;
+    --sidebar-primary: 280 100% 65%;
+    --sidebar-primary-foreground: 260 20% 8%;
+    --sidebar-accent: 260 30% 16%;
+    --sidebar-accent-foreground: 280 100% 95%;
+    --sidebar-border: 280 50% 25%;
+    --sidebar-ring: 280 100% 65%;
+  }
+
+  .dark {
+    --background: 260 20% 8%;
+    --foreground: 280 100% 95%;
+
+    --card: 260 25% 12%;
+    --card-foreground: 280 100% 95%;
+
+    --popover: 260 25% 12%;
+    --popover-foreground: 280 100% 95%;
+
+    --primary: 280 100% 65%;
+    --primary-foreground: 260 20% 8%;
+
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 260 20% 8%;
+
+    --muted: 260 20% 18%;
+    --muted-foreground: 280 30% 70%;
+
+    --accent: 320 100% 60%;
+    --accent-foreground: 260 20% 8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 280 50% 25%;
+    --input: 280 50% 25%;
+    --ring: 280 100% 65%;
+
+    --sidebar-background: 260 20% 8%;
+    --sidebar-foreground: 280 100% 95%;
+    --sidebar-primary: 280 100% 65%;
+    --sidebar-primary-foreground: 260 20% 8%;
+    --sidebar-accent: 260 30% 16%;
+    --sidebar-accent-foreground: 280 100% 95%;
+    --sidebar-border: 280 50% 25%;
+    --sidebar-ring: 280 100% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Cinzel', 'Georgia', serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', 'Georgia', serif;
+  }
+}
+
+/* Subtle neon glow effects */
+.neon-glow {
+  text-shadow: 
+    0 0 4px hsl(280 100% 65% / 0.6),
+    0 0 8px hsl(280 100% 65% / 0.3);
+}
+
+.neon-glow-pink {
+  text-shadow: 
+    0 0 4px hsl(320 100% 60% / 0.6),
+    0 0 8px hsl(320 100% 60% / 0.3);
+}
+
+.neon-glow-cyan {
+  text-shadow: 
+    0 0 4px hsl(180 100% 50% / 0.6),
+    0 0 8px hsl(180 100% 50% / 0.3);
+}
+
+.magic-border {
+  box-shadow: 
+    0 0 3px hsl(280 100% 65% / 0.3),
+    0 0 6px hsl(280 100% 65% / 0.15);
+}
