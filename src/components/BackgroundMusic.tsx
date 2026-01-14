@@ -13,14 +13,13 @@ export const BackgroundMusic = ({ src = "/music.mp3" }: BackgroundMusicProps) =>
 
     // Setar volume inicial em 50%
     audio.volume = 0.5;
-
-    // Tocar automaticamente
-    audio.autoplay = true;
     audio.loop = true;
 
     // Bloquear pause
     const handlePause = () => {
-      audio.play();
+      audio.play().catch(() => {
+        // Silenciosamente falha se não conseguir tocar
+      });
     };
 
     // Bloquear volume zerado
@@ -33,21 +32,28 @@ export const BackgroundMusic = ({ src = "/music.mp3" }: BackgroundMusicProps) =>
     audio.addEventListener("pause", handlePause);
     audio.addEventListener("volumechange", handleVolumeChange);
 
-    // Tentar tocar (alguns navegadores precisam de interação)
-    audio.play().catch((error) => {
-      console.log("Autoplay bloqueado pelo navegador:", error);
-    });
+    // Tentar tocar com suporte a navegadores mais restritivos
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log("Música tocando");
+        })
+        .catch((error) => {
+          console.log("Autoplay bloqueado pelo navegador - é necessário click do usuário:", error);
+        });
+    }
 
     return () => {
       audio.removeEventListener("pause", handlePause);
       audio.removeEventListener("volumechange", handleVolumeChange);
     };
-  }, []);
+  }, [src]);
 
   return (
     <audio
       ref={audioRef}
-      autoPlay
+      src={src}
       loop
       style={{ display: "none" }}
       controlsList="nodownload"
