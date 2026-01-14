@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Flame, Zap, Moon, Star, Sparkles, Skull } from "lucide-react";
 
 const wishes = [
-  { icon: Flame, text: "Paixão intensa", color: "text-neon-pink" },
-  { icon: Zap, text: "Energia infinita", color: "text-neon-cyan" },
+  { icon: Flame, text: "paixões intensas", color: "text-neon-pink" },
+  { icon: Zap, text: "Energia positiva", color: "text-neon-cyan" },
   { icon: Moon, text: "Noites mágicas", color: "text-neon-purple" },
   { icon: Star, text: "Brilho próprio", color: "text-neon-pink" },
   { icon: Sparkles, text: "Momentos épicos", color: "text-neon-cyan" },

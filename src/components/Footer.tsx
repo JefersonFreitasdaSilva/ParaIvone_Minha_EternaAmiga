@@ -26,7 +26,7 @@ export const Footer = () => {
         </motion.div>
 
         <p className="text-muted-foreground">
-          Feito com muita <span className="text-neon-pink">energia</span> para você 🔥
+          Feito com muita <span className="text-neon-pink">carinho</span> para você 🔥
         </p>
       </motion.div>
     </footer>
